@@ -2,15 +2,11 @@
 
 ## Snapshot tool - snapshot.js
 
-### Requirement
-
-Please replace the RPC url with your own RPC node before you run this script.
-
 ```bash
 # Install the deps
 npm install web3
-# Run with the contract address, start block, and the target block.
-node snapshot.js 0x5Ab62C4Eefb34E8E162e651Ea371410426454275 13942543 13942556
+# Run with the contract address, start block, target block and the RPC url
+node snapshot.js 0x5Ab62C4Eefb34E8E162e651Ea371410426454275 13942543 13942556 https://...
 # Expected output
 Web3 is connected.
 Process block 13942543 to 13942556 on 0x5Ab62C4Eefb34E8E162e651Ea371410426454275
