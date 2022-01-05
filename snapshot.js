@@ -1,4 +1,6 @@
 const Web3 = require("web3");
+const fs = require('fs');
+const { format } = require('@fast-csv/format');
 
 (async () => {
 	const args = process.argv.slice(2);
@@ -28,10 +30,17 @@ const Web3 = require("web3");
 	}
 
 	console.log('\n========== SUMMARY ==========');
+	const fileName = 'donation.csv';
+	const csvFile = fs.createWriteStream(fileName);
+	const stream = format({ headers:true });
+	stream.pipe(csvFile);
 	for (let account in donation) {
 		console.log(`${account},${donation[account]}`);
+		stream.write({ account: account, amount: donation[account] });
 	}
+	stream.end();
 
 	// close websocket connection
 	web3.currentProvider.connection.close()
+
 })();
