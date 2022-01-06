@@ -9,8 +9,8 @@ Please replace the RPC url with your own RPC node before you run this script.
 ```bash
 # Install the deps
 npm install web3 fast-csv
-# Run with the contract address, start block, target block and RPC url.
-node snapshot.js 0x5Ab62C4Eefb34E8E162e651Ea371410426454275 13942543 13942556 https://...
+# Run with the contract address, start block, target block, RPC url, and LUA offer amount.
+node snapshot.js 0x5Ab62C4Eefb34E8E162e651Ea371410426454275 13942543 13942556 https://... 10000
 # Expected output
 ========== SNAPSHOT ==========
 Web3 is connected.

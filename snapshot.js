@@ -8,6 +8,7 @@ const { format } = require('@fast-csv/format');
 	const startBlock = parseInt(args[1], 10);
 	const targetBlock = parseInt(args[2], 10);
 	const rpc = args[3];
+	const totalOffer = parseInt(args[4], 10);
 
 	const web3 = new Web3(rpc);
 	await web3.eth.net.isListening();
@@ -18,6 +19,7 @@ const { format } = require('@fast-csv/format');
 
 	console.log('\n========== CHECK TX IN BLOCKS ==========');
 	let donation = [];
+	let totalDonation = 0;
 	for (let blockNumber = startBlock; blockNumber <= targetBlock; blockNumber++) {
 		let block = await web3.eth.getBlock(blockNumber, true);
 		for (let tx of block.transactions) {
@@ -25,9 +27,11 @@ const { format } = require('@fast-csv/format');
 				let balance = parseInt(tx.value);
                 donation[tx.from] = donation[tx.from]==undefined ? balance : donation[tx.from]+balance;
 				console.log(`${blockNumber},${tx.hash},${tx.from},${tx.to},${tx.value}`);
+				totalDonation += balance;
 			}
 		}
 	}
+	console.log(`totalDonation: ${totalDonation}`);
 
 	console.log('\n========== SUMMARY ==========');
 	const fileName = 'donation.csv';
@@ -35,8 +39,9 @@ const { format } = require('@fast-csv/format');
 	const stream = format({ headers:true });
 	stream.pipe(csvFile);
 	for (let account in donation) {
-		console.log(`${account},${donation[account]}`);
-		stream.write({ account: account, amount: donation[account] });
+		let offer = donation[account]/totalDonation*totalOffer;
+		console.log(`${account},${donation[account]},${offer}`);
+		stream.write({ account:account, eth_donation:donation[account], lua_offer:offer });
 	}
 	stream.end();
 
