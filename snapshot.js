@@ -41,7 +41,7 @@ const { format } = require('@fast-csv/format');
 	for (let account in donation) {
 		let offer = donation[account]/totalDonation*totalOffer;
 		console.log(`${account},${donation[account]},${offer}`);
-		stream.write({ account:account, eth_donation:donation[account], lua_offer:offer });
+		stream.write({ account:account, eth_donation:donation[account], lun_offer:offer });
 	}
 	stream.end();
 
