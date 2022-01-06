@@ -2,15 +2,20 @@
 
 ## Snapshot tool - snapshot.js
 
+This script calcaute the ETH donation amount and LUN offer amount by each account during TGE.
+After calculation was finished, a csv file with name `donation.csv` will be generated.
+
 ### Requirement
 
-Please replace the RPC url with your own RPC node before you run this script.
+Please replace the RPC url with your own RPC node.
 
 ```bash
 # Install the deps
-npm install web3
-# Run with the contract address, start block, and the target block.
-node snapshot.js 0x5Ab62C4Eefb34E8E162e651Ea371410426454275 13942543 13942556
+npm install web3 fast-csv
+
+# Run with the contract address, start block, target block, RPC url, and initial LUN offer amount.
+node snapshot.js 0x5Ab62C4Eefb34E8E162e651Ea371410426454275 13942543 13942556 https://... 10000
+
 # Expected output
 ========== SNAPSHOT ==========
 Web3 is connected.
